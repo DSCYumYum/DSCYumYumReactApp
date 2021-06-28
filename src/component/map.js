@@ -44,15 +44,15 @@ class Map extends React.Component {
           level: 4,
         };
         const map = new window.kakao.maps.Map(container, options);
-        // let markerPosition = new kakao.maps.LatLng(
-        //   35.2335004352527,
-        //   129.078417978798
-        // );
+        let markerPosition = new kakao.maps.LatLng(
+          35.2335004352527,
+          129.078417978798
+        );
 
-        // let marker = new kakao.maps.Marker({
-        //   position: markerPosition,
-        // });
-        // marker.setMap(map);
+        let marker = new kakao.maps.Marker({
+          position: markerPosition,
+        });
+        marker.setMap(map);
       });
     };
   }

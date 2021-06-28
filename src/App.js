@@ -5,6 +5,7 @@ import SearchAppBar from "./component/SearchAppBar";
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
 import styled from "styled-components";
+import Search from "../src/component/search";
 
 function App() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -17,6 +18,7 @@ function App() {
       />
       <Grid container direction="column" justify="center" alignItems="stretch">
         <Header />
+        <Search />
         <Map searchKeyword={searchKeyword} />
         <Footer />
       </Grid>
