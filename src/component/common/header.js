@@ -1,7 +1,7 @@
 function Header() {
   return (
     <div>
-      <h1>yum-yum</h1>
+      <h1 style={{ justify: "center" }}>yum-yum</h1>
     </div>
   );
 }
