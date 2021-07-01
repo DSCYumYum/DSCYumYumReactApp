@@ -1,6 +1,7 @@
 import React from "react";
 import { List, ListItem } from "@material-ui/core";
 import searchByCategory from "../search/functions/searchByCategory";
+import Review from "../review"
 
 /*global kakao*/
 class Map extends React.Component {
@@ -11,6 +12,7 @@ class Map extends React.Component {
       centerLng: 129.078417978798,
       markers: [],
       category: "중국집",
+      tmp_title: "",
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -116,7 +118,7 @@ class Map extends React.Component {
         });
 
         kakao.maps.event.addListener(marker, "click", function () {
-          self.createSearchKeyword(title);
+          self.setState({tmp_title : self.createSearchKeyword(title)});
           // show content
         });
       })(marker, place.place_name);
@@ -163,6 +165,7 @@ class Map extends React.Component {
     return (
       <>
         <div id="map" style={mapstyle}></div>
+        <Review title={this.state.tmp_title}></Review>
       </>
     );
   }
