@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ScrollMenu from "react-horizontal-scrolling-menu";
+// import ScrollMenu from "react-horizontal-scrolling-menu";
 import PropTypes from "prop-types";
 import CategoryCard from "./CategoryCard";
 import { List, ListItem } from "@material-ui/core";
