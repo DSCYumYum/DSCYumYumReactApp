@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,6 +9,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
+import Drawer from "@material-ui/core/Drawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,9 +72,20 @@ export default function SearchAppBar({ searchKeyword, setSearchKeyword }) {
     setSearchKeyword(e.target.value);
     console.log(e.target.value);
   };
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const toggleDrawer = (open) => {
+    // if (
+    //   event.type === "keydown" &&
+    //   (event.key === "Tab" || event.key === "Shift")
+    // ) {
+    //   return;
+    // }
+    setDrawerOpen(open);
+  };
 
   return (
     <div className={classes.root}>
+      {/* <Drawer anchor={"top"} open={drawerOpen} onClose={toggleDrawer(false)} /> */}
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -85,7 +97,7 @@ export default function SearchAppBar({ searchKeyword, setSearchKeyword }) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Yum Yum search
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

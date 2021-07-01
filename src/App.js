@@ -16,6 +16,7 @@ function App() {
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
       />
+
       <Grid container direction="column" justify="center" alignItems="stretch">
         <Header />
         <Search />
@@ -25,7 +26,5 @@ function App() {
     </div>
   );
 }
-
-const layoutStyle = {};
 
 export default App;
