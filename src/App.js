@@ -4,8 +4,8 @@ import Footer from "./component/common/footer";
 import SearchAppBar from "./component/search/SearchAppBar";
 import React, { useState } from "react";
 import { Grid } from "@material-ui/core";
-import styled from "styled-components";
 import Search from "./component/search/search";
+import CategorySelect from "./component/search/CategorySelect";
 
 function App() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -16,16 +16,21 @@ function App() {
         searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
       />
+
       <Grid container direction="column" justify="center" alignItems="stretch">
-        <Header />
+        <Header
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+        />
         <Search />
-        <Map searchKeyword={searchKeyword} />
+        <Map
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+        />
         <Footer />
       </Grid>
     </div>
   );
 }
-
-const layoutStyle = {};
 
 export default App;
