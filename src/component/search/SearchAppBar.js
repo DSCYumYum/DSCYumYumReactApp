@@ -10,15 +10,21 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  appbar: {
+    backgroundColor: "#F5dF4D",
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
+    fontFamily: 'Do Hyeon',
     flexGrow: 1,
     display: "none",
     [theme.breakpoints.up("sm")]: {
@@ -86,18 +92,22 @@ export default function SearchAppBar({ searchKeyword, setSearchKeyword }) {
   return (
     <div className={classes.root}>
       {/* <Drawer anchor={"top"} open={drawerOpen} onClose={toggleDrawer(false)} /> */}
-      <AppBar position="static">
+      <AppBar className={classes.appbar} position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
-            Yum Yum search
+            <FontAwesomeIcon
+              icon={faUtensils}
+              style={{ paddingRight: "10px" }}
+            />
+            냠냠박사
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -114,7 +124,7 @@ export default function SearchAppBar({ searchKeyword, setSearchKeyword }) {
               value={searchKeyword}
             />
           </div>
-          <Button onClick={handleValueChange}>submit</Button>
+          {/* <Button onClick={handleValueChange}>submit</Button> */}
         </Toolbar>
       </AppBar>
     </div>

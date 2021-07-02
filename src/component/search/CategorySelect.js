@@ -154,109 +154,146 @@ class CategorySelect extends React.Component {
     const flexContainer = {
       display: "flex",
       flexDirection: "row",
-      padding: 0,
+      justifyContent: "center",
+      padding: "3vw",
     };
+
+    const buttonStyle = {
+      appearance: "none",
+      width: "7vw",
+      height: "6em",
+      wordBreak: "break-all",
+      padding: "3px",
+      margin: "0px 3px",
+      background: "#FAFAFA",
+      borderRadius: "30px",
+      borderColor: "#F5dF4D",
+      fontFamily: 'Do Hyeon',
+    };
+
     return (
       <div>
         <List style={flexContainer}>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("디저트");
               console.log("디저트");
               searchByCategory("디저트");
             }}
           >
-            디저트
+            <div>🍰</div>
+            <div>디저트</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("분식");
               console.log("분식");
               searchByCategory("분식");
             }}
           >
-            분식
+            <div>🍙</div>
+            <div>분식</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("패스트푸드");
               console.log("패스트푸드");
               searchByCategory("패스트푸드");
             }}
           >
-            패스트푸드
+            <div>🍔</div>
+            <div>패스트푸드</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("한식");
               console.log("한식");
               searchByCategory("한식");
             }}
           >
-            한식
+            <div>🍚</div>
+            <div>한식</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("치킨");
               console.log("치킨");
               searchByCategory("치킨");
             }}
           >
-            치킨
+            <div>🍗</div>
+            <div>치킨</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("일식");
               console.log("일식");
               searchByCategory("일식");
             }}
           >
-            일식
+            <div>🍣</div>
+            <div>일식</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("피자");
               console.log("피자");
               searchByCategory("피자");
             }}
           >
-            피자
+            <div>🍕</div>
+            <div>피자</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("족발");
               console.log("족발");
               searchByCategory("족발");
             }}
           >
+            <div>🍖</div>
             족발,보쌈
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("양식");
               console.log("양식");
               searchByCategory("양식");
             }}
           >
-            아시안,양식
+            <div>🍝</div>
+            <div>아시안,양식</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("중국집");
               console.log("중국집");
               searchByCategory("중국집");
             }}
           >
-            중국집
+            <div>🥟</div>
+            <div>중국집</div>
           </button>
           <button
+            style={buttonStyle}
             onClick={() => {
               this.props.setSearchKeyword("찜");
               console.log("찜");
               searchByCategory("찜");
             }}
           >
-            찜,탕
+            <div>🍲</div>
+            <div>찜,탕</div>
           </button>
         </List>
       </div>

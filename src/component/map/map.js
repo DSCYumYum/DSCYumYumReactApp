@@ -1,7 +1,9 @@
 import React from "react";
 import { List, ListItem } from "@material-ui/core";
 import searchByCategory from "../search/functions/searchByCategory";
-import Review from "../review"
+import Review from "../review";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 /*global kakao*/
 class Map extends React.Component {
@@ -118,7 +120,7 @@ class Map extends React.Component {
         });
 
         kakao.maps.event.addListener(marker, "click", function () {
-          self.setState({tmp_title : self.createSearchKeyword(title)});
+          self.setState({ tmp_title: self.createSearchKeyword(title) });
           // show content
         });
       })(marker, place.place_name);
@@ -127,7 +129,10 @@ class Map extends React.Component {
     map.setBounds(bounds);
 
     function displayInfowindow(marker, title) {
-      let content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+      let content =
+        '<div style="padding:5px;z-index:1;font-family:Do Hyeon">' +
+        title +
+        "</div>";
 
       infowindow.setContent(content);
       infowindow.open(map, marker);
@@ -164,16 +169,39 @@ class Map extends React.Component {
     };
     return (
       <>
-        <div id="map" style={mapstyle}></div>
+        <div style={mapContainerStyle}>
+          <div style={titleStyle}>
+            <FontAwesomeIcon
+              icon={faMapMarkerAlt}
+              style={{
+                fontSize: "40px",
+                color: "#238cfa",
+                paddingRight: "10px",
+              }}
+            />
+            <h2>플레이스</h2>
+          </div>
+          <div id="map" style={mapstyle}></div>
+        </div>
         <Review title={this.state.tmp_title}></Review>
       </>
     );
   }
 }
-
-const mapstyle = {
-  height: "500px",
-  weight: "400px",
+const titleStyle = {
+  display: "flex",
+  alignItems: "center",
+  marginLeft: "10vw"
 };
 
+const mapstyle = {
+  height: "60vh",
+  weight: "60vw",
+  margin: "0px 10vw",
+  background: "#FAFAFA",
+  border: "2px solid #F5dF4D",
+  borderRadius: "30px",
+};
+
+const mapContainerStyle = {};
 export default Map;
