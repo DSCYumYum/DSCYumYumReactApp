@@ -64,8 +64,6 @@ class Map extends React.Component {
       radius: 2000,
     });
 
-    // ps.keywordSearch("부산대 국밥", placesSearch);
-
     function placesSearch(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
         console.log(data);
@@ -150,7 +148,7 @@ class Map extends React.Component {
     let index = title.lastIndexOf(" ");
 
     if (index != -1) {
-      if (title.includes("부산대", index) || title.includes("금정", index)) {
+      if (title.includes("부산", index) || title.includes("금정", index)) {
         title = title.substring(0, index);
       }
     }
@@ -171,12 +169,11 @@ class Map extends React.Component {
             <FontAwesomeIcon
               icon={faMapMarkerAlt}
               style={{
-                fontSize: "40px",
                 color: "#238cfa",
                 paddingRight: "10px",
               }}
             />
-            <h2>플레이스</h2>
+            <span>플레이스</span>
           </div>
           <div id="map" style={mapstyle}></div>
         </div>
@@ -188,7 +185,9 @@ class Map extends React.Component {
 const titleStyle = {
   display: "flex",
   alignItems: "center",
-  marginLeft: "10vw",
+  margin: "2vh 10vw",
+  fontFamily: 'Do Hyeon',
+  fontSize: "30px",
 };
 
 const mapstyle = {
