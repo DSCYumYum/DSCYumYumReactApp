@@ -1,7 +1,9 @@
 import React from "react";
 import { List, ListItem } from "@material-ui/core";
 import searchByCategory from "../search/functions/searchByCategory";
-import Review from "../review"
+import Review from "../review";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 /*global kakao*/
 class Map extends React.Component {
@@ -11,25 +13,19 @@ class Map extends React.Component {
       centerLat: 35.2335004352527,
       centerLng: 129.078417978798,
       markers: [],
-      category: "중국집",
+      category: "디저트",
       tmp_title: "",
     };
   }
   componentWillReceiveProps(nextProps) {
     const keyword = nextProps.searchKeyword;
     if (this.props.searchKeyword !== nextProps.searchKeyword) {
-      this.setState({
-        ...this.state,
-        category: keyword,
+      this.setState({ category: keyword }, () => {
+        this.initMap();
       });
-      console.log("keyword", keyword);
-      this.initMap();
     }
   }
-
   componentDidMount() {
-    console.log("map props", this.props);
-    console.log("map state", this.state.category);
     const script = document.createElement("script");
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_APP_KEY}&libraries=services,clusterer,drawing&autoload=false`;
@@ -55,20 +51,22 @@ class Map extends React.Component {
       position: markerPosition,
     });
 
-    marker.setMap(map);
-    this.setState({ markers: [...this.state.markers, marker] });
+    // marker.setMap(map);
+    // this.setState({ markers: [...this.state.markers, marker] });
 
     /* test */
     const ps = new kakao.maps.services.Places();
+    const self = this;
 
-    ps.keywordSearch(this.props.searchKeyword, placesSearch, {
+    ps.keywordSearch(this.state.category, placesSearch, {
       category_group_code: "FD6",
       location: new kakao.maps.LatLng(35.2335004352527, 129.078417978798),
       radius: 2000,
     });
-    const self = this;
+
     function placesSearch(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
+        console.log(data);
         self.displayMarkers(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert("검색 결과가 존재하지 않습니다.");
@@ -82,7 +80,6 @@ class Map extends React.Component {
 
   displayMarkers = (places) => {
     const { markers } = this.state;
-    console.log(markers);
     let container = document.getElementById("map");
     let options = {
       center: new kakao.maps.LatLng(this.state.centerLat, this.state.centerLng),
@@ -118,7 +115,7 @@ class Map extends React.Component {
         });
 
         kakao.maps.event.addListener(marker, "click", function () {
-          self.setState({tmp_title : self.createSearchKeyword(title)});
+          self.setState({ tmp_title: self.createSearchKeyword(title) });
           // show content
         });
       })(marker, place.place_name);
@@ -127,7 +124,10 @@ class Map extends React.Component {
     map.setBounds(bounds);
 
     function displayInfowindow(marker, title) {
-      let content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
+      let content =
+        '<div style="padding:5px;z-index:1;font-family:Do Hyeon">' +
+        title +
+        "</div>";
 
       infowindow.setContent(content);
       infowindow.open(map, marker);
@@ -148,7 +148,7 @@ class Map extends React.Component {
     let index = title.lastIndexOf(" ");
 
     if (index != -1) {
-      if (title.includes("부산대", index) || title.includes("금정", index)) {
+      if (title.includes("부산", index) || title.includes("금정", index)) {
         title = title.substring(0, index);
       }
     }
@@ -164,16 +164,40 @@ class Map extends React.Component {
     };
     return (
       <>
-        <div id="map" style={mapstyle}></div>
+        <div style={mapContainerStyle}>
+          <div style={titleStyle}>
+            <FontAwesomeIcon
+              icon={faMapMarkerAlt}
+              style={{
+                color: "#238cfa",
+                paddingRight: "10px",
+              }}
+            />
+            <span>플레이스</span>
+          </div>
+          <div id="map" style={mapstyle}></div>
+        </div>
         <Review title={this.state.tmp_title}></Review>
       </>
     );
   }
 }
-
-const mapstyle = {
-  height: "500px",
-  weight: "400px",
+const titleStyle = {
+  display: "flex",
+  alignItems: "center",
+  margin: "2vh 10vw",
+  fontFamily: 'Do Hyeon',
+  fontSize: "30px",
 };
 
+const mapstyle = {
+  height: "60vh",
+  weight: "60vw",
+  margin: "0px 10vw",
+  background: "#FAFAFA",
+  border: "2px solid #F5dF4D",
+  borderRadius: "30px",
+};
+
+const mapContainerStyle = {};
 export default Map;
