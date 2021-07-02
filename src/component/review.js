@@ -6,6 +6,34 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Paper from '@material-ui/core/Paper';
+
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      justifyContent: 'center',
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '10%',
+        flexShrink: 0,
+      },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: theme.palette.text.secondary,
+      },
+    reviewList:{
+        margin: '0 30px'
+    }
+  }));
 
 
 
@@ -21,6 +49,8 @@ function getInfo(text){
 
 
 function Review({title}) {
+    const classes = useStyles();
+
     var [text, setText] = useState("");
     var [info, setInfo] = useState([]);
 
@@ -41,16 +71,37 @@ function Review({title}) {
     
     
     
-    return <div>
-        {title}
-        <br/>
-        
-        {info.map((v, i)=>{
-            return <List key={i}><ListItem><ListItemText>{v}</ListItemText></ListItem><Divider/></List>
-        })}
-        
-         
+    return<div className={classes.root}>
+            <br></br>
+            <div align="center"><Button className={classes.btn} size="large" variant="contained" color="primary">{title}</Button></div>
+            <br></br>
 
+        <Paper className={classes.reviewList}>
+        {
+            info.map((v,i) => {
+                if(title === "") return ""
+                return <Accordion key={i}>                
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                <Typography className={classes.heading}>Review {i+1}</Typography>
+                <Typography className={classes.secondaryHeading}>{v.substring(0,30)}...</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                
+                <Typography>
+                <Divider></Divider>
+                <br></br>
+                    {v}
+                </Typography>
+                </AccordionDetails>
+                </Accordion>
+            })
+        }
+        </Paper>
+         
     </div>;
   }
   
