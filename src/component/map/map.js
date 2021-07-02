@@ -13,25 +13,19 @@ class Map extends React.Component {
       centerLat: 35.2335004352527,
       centerLng: 129.078417978798,
       markers: [],
-      category: "중국집",
+      category: "디저트",
       tmp_title: "",
     };
   }
   componentWillReceiveProps(nextProps) {
     const keyword = nextProps.searchKeyword;
     if (this.props.searchKeyword !== nextProps.searchKeyword) {
-      this.setState({
-        ...this.state,
-        category: keyword,
+      this.setState({ category: keyword }, () => {
+        this.initMap();
       });
-      console.log("keyword", keyword);
-      this.initMap();
     }
   }
-
   componentDidMount() {
-    console.log("map props", this.props);
-    console.log("map state", this.state.category);
     const script = document.createElement("script");
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_APP_KEY}&libraries=services,clusterer,drawing&autoload=false`;
@@ -57,20 +51,24 @@ class Map extends React.Component {
       position: markerPosition,
     });
 
-    marker.setMap(map);
-    this.setState({ markers: [...this.state.markers, marker] });
+    // marker.setMap(map);
+    // this.setState({ markers: [...this.state.markers, marker] });
 
     /* test */
     const ps = new kakao.maps.services.Places();
+    const self = this;
 
-    ps.keywordSearch(this.props.searchKeyword, placesSearch, {
+    ps.keywordSearch(this.state.category, placesSearch, {
       category_group_code: "FD6",
       location: new kakao.maps.LatLng(35.2335004352527, 129.078417978798),
       radius: 2000,
     });
-    const self = this;
+
+    // ps.keywordSearch("부산대 국밥", placesSearch);
+
     function placesSearch(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
+        console.log(data);
         self.displayMarkers(data);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         alert("검색 결과가 존재하지 않습니다.");
@@ -84,7 +82,6 @@ class Map extends React.Component {
 
   displayMarkers = (places) => {
     const { markers } = this.state;
-    console.log(markers);
     let container = document.getElementById("map");
     let options = {
       center: new kakao.maps.LatLng(this.state.centerLat, this.state.centerLng),
@@ -191,7 +188,7 @@ class Map extends React.Component {
 const titleStyle = {
   display: "flex",
   alignItems: "center",
-  marginLeft: "10vw"
+  marginLeft: "10vw",
 };
 
 const mapstyle = {
